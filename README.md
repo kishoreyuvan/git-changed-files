@@ -32,7 +32,8 @@ const gitChangedFiles = require('git-changed-files');
     console.log(err);
   });
 
-// Expected: [ '.editorconfig', '.travis.yml', 'destroy.js', 'index.js' ]
+// Expected: { committedFiles: [ '.editorconfig', '.travis.yml', 'destroy.js', 'index.js' ],
+               unCommittedFiles: ['index.js'] }
 
 
 (async() => {
@@ -42,7 +43,8 @@ const gitChangedFiles = require('git-changed-files');
     console.log(err);
   });
 
-// Expected: [ '.travis.yml' ]
+// Expected: { committedFiles: [ '.travis.yml'],
+               unCommittedFiles: [] }
 
 
 (async() => {
@@ -52,7 +54,8 @@ const gitChangedFiles = require('git-changed-files');
     console.log(err);
   });
 
-// Expected: [ '.editorconfig', 'destroy.js', 'index.js' ]
+// Expected: { committedFiles: [ '.editorconfig', 'destroy.js', 'index.js' ],
+               unCommittedFiles: ['index.js'] }
 
 
 (async() => {
@@ -62,7 +65,8 @@ const gitChangedFiles = require('git-changed-files');
     console.log(err);
   });
 
-// Expected: [ 'destroy.js' ]
+// Expected: { committedFiles: ['destroy.js'],
+               unCommittedFiles: [] }
 
 (async() => {
   let committedGitFiles = await gitChangedFiles({ showStatus: true });
@@ -73,11 +77,32 @@ const gitChangedFiles = require('git-changed-files');
 
 /*
 Expected:
-  [ { filename: '.editorconfig', status: 'Deleted' },
-  { filename: '.travis.yml', status: 'Modified' },
-  { filename: 'destroy.js', status: 'Added' },
-  { filename: 'index.js', status: 'Modified' },
-  { filename: 'package.json', status: 'Modified' } ]
+  { 
+    committedFiles: [ 
+      {
+        fileName: '.editorconfig',
+        status: 'Modified'
+      },
+      {
+        fileName: '.travis.yml'
+        status: 'Modified'
+      },
+      {
+        fileName: 'destroy.js'
+        status: 'Added'
+      },
+      {
+        fileName: 'index.js'
+        status: 'Modified'
+      }
+    ],
+    unCommittedFiles: [
+      {
+        fileName: 'index.js'
+        status: 'Modified'
+      }
+    ]
+   }
 */
 
 ```
